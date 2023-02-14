@@ -20,8 +20,8 @@ model User {
   lastName  String
   password  String
 
-  projects  Project[]
-  tasks     Task[]
+  projects Project[]
+  tasks    Task[]
 }
 
 model Project {
@@ -37,10 +37,10 @@ model Project {
   due         DateTime?
   deleted     Boolean   @default(false)
 
+  tasks Task[]
+
   @@unique([ownerId, name]) //each owner must have unique project names
   @@index([ownerId, id]) //writes an index for the fields to query it effectively
-
-  tasks       Task[]
 }
 
 enum TASK_STATUS {
@@ -61,4 +61,6 @@ model Task {
   owner     User    @relation(fields: [ownerId], references: [id])
   projectId String
   project   Project @relation(fields: [projectId], references: [id])
+
+  @@index([ownerId])
 }
