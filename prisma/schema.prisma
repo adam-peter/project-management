@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email     String
+  firstName String
+  lastName  String
+  password  String
+
+  projects  Project[]
+  tasks     Task[]
+}
+
+model Project {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name    String
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  description String?
+  due         DateTime?
+  deleted     Boolean   @default(false)
+
+  @@unique([ownerId, name]) //each owner must have unique project names
+  @@index([ownerId, id]) //writes an index for the fields to query it effectively
+
+  tasks       Task[]
+}
+
+enum TASK_STATUS {
+  STARTED
+  NOT_STARTED
+  COMPLETED
+}
+
+model Task {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name   String
+  status TASK_STATUS @default(NOT_STARTED)
+
+  ownerId   String
+  owner     User    @relation(fields: [ownerId], references: [id])
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id])
+}
