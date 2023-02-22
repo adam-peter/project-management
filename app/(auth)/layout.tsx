@@ -1,12 +1,21 @@
-import React from 'react'
+import React from "react";
 
-const LayoutAuth = ({children}: {children: React.ReactNode}) => {
+import "@/styles/globals.css";
+import GlassPane from "@/components/GlassPane";
+
+type AuthLayoutType = { children: React.ReactNode };
+
+const AuthLayout: React.FC<AuthLayoutType> = ({ children }) => {
   return (
-    <div>
-      LayoutAuth
-      {children}
-    </div>
-  )
-}
+    <html>
+      <head />
+      <body className="rainbow-mesh h-screen w-screen p-6">
+        <GlassPane className="height-full flex w-full items-center justify-center">
+          {children}
+        </GlassPane>
+      </body>
+    </html>
+  );
+};
 
-export default LayoutAuth
+export default AuthLayout;
