@@ -1,9 +1,23 @@
-import React from 'react'
+import React from "react";
+
+import Image from "next/image";
+
+import Card from "./Card";
+import SidebarLink from "./SidebarLink";
+
+const links = [
+  { label: "Home", icon: "Grid", link: "/home" },
+  { label: "Calendar", icon: "Calendar", link: "/calendar" },
+  { label: "Profile", icon: "User", link: "/profile" },
+  { label: "Settings", icon: "Settings", link: "/settings" },
+];
 
 const Sidebar = () => {
-  return (
-    <div>Sidebar</div>
-  )
-}
+  return <Card className="h-full w-40 flex items-center justify-between flex-wrap">
+    {links.map((link)=>{
+      return <SidebarLink link={link} key={link.label}/>
+    })}
+  </Card>;
+};
 
-export default Sidebar
+export default Sidebar;

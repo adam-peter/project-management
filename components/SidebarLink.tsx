@@ -16,7 +16,7 @@ const icons = {
 interface SidebarLinkProps {
   link: {
     link: string;
-    icon: "Settings" | "User" | "Grid" | "Calendar";
+    icon: string;
   };
 }
 
@@ -28,6 +28,7 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({ link }) => {
     isActive = true;
   }
 
+  // @ts-ignore
   const Icon = icons[link.icon];
 
   return (
