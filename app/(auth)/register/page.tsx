@@ -1,9 +1,11 @@
 import React from "react";
 
+import AuthForm from "@/components/AuthForm";
+
 const Register = () => {
   return (
     <div>
-      <p>Register</p>
+      <AuthForm mode="register" />
     </div>
   );
 };

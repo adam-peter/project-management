@@ -25,8 +25,10 @@ const buttonClasses = cva(
         secondary: [
           "bg-white",
           "text-black",
+          "hover:bg-black",
+          "hover:text-white",
+          "ease-in-out",
           "border-gray-400",
-          "hover:bg-gray-100",
           "border-solid",
           "border-2",
           "border-gray-800",

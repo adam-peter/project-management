@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import React, { ChangeEvent, useCallback, useState } from "react";
 
 import { useRouter } from "next/navigation"; //not "next/router"!
 
@@ -7,6 +7,7 @@ import Input from "./Input";
 import Button from "./Button";
 import Card from "./Card";
 import { register, signin } from "@/lib/api";
+import Link from "next/link";
 
 const registerContent = {
   linkUrl: "/signin",
@@ -32,7 +33,7 @@ const initial = {
 };
 
 type AuthFormType = {
-  mode: string;
+  mode: "signin" | "register";
 };
 
 const AuthForm: React.FC<AuthFormType> = (props) => {
@@ -42,7 +43,7 @@ const AuthForm: React.FC<AuthFormType> = (props) => {
   const router = useRouter();
 
   const handleSubmit = useCallback(
-    async (e: SubmitEvent) => {
+    async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
       try {
@@ -86,7 +87,7 @@ const AuthForm: React.FC<AuthFormType> = (props) => {
                   placeholder="First Name"
                   value={formState.firstName}
                   className="border-gray w-full rounded-3xl border-2 border-solid px-6 py-2 text-lg"
-                  onChange={(e) =>
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     setFormState((s) => ({ ...s, firstName: e.target.value }))
                   }
                 />
@@ -98,7 +99,7 @@ const AuthForm: React.FC<AuthFormType> = (props) => {
                   placeholder="Last Name"
                   value={formState.lastName}
                   className="border-gray w-full rounded-3xl border-2 border-solid px-6 py-2 text-lg"
-                  onChange={(e) =>
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     setFormState((s) => ({ ...s, lastName: e.target.value }))
                   }
                 />
@@ -110,10 +111,10 @@ const AuthForm: React.FC<AuthFormType> = (props) => {
             <Input
               required
               type="email"
-              placeholder="Email"
+              placholder="Email"
               value={formState.email}
               className="border-gray w-full rounded-3xl border-2 border-solid px-6 py-2 text-lg"
-              onChange={(e) =>
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setFormState((s) => ({ ...s, email: e.target.value }))
               }
             />
@@ -126,7 +127,7 @@ const AuthForm: React.FC<AuthFormType> = (props) => {
               type="password"
               placeholder="Password"
               className="border-gray w-full rounded-3xl border-2 border-solid px-6 py-2 text-lg"
-              onChange={(e) =>
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setFormState((s) => ({ ...s, password: e.target.value }))
               }
             />
@@ -135,6 +136,7 @@ const AuthForm: React.FC<AuthFormType> = (props) => {
             <div>
               <span>
                 <Link
+                  prefetch
                   href={content.linkUrl}
                   className="font-bold text-blue-600"
                 >

@@ -10,7 +10,7 @@ const AuthLayout: React.FC<AuthLayoutType> = ({ children }) => {
     <html>
       <head />
       <body className="rainbow-mesh h-screen w-screen p-6">
-        <GlassPane className="height-full flex w-full items-center justify-center">
+        <GlassPane className="h-full flex w-full items-center justify-center">
           {children}
         </GlassPane>
       </body>
